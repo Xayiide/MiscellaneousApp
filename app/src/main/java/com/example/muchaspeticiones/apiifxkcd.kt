@@ -4,7 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface apiif {
+interface apiifxkcd {
 
     @GET("{comicId}/info.0.json")
     fun getRandomComic(@Path("comicId") comicId: Int): Call<xkcdGETItem>

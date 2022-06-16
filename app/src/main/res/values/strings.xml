@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MuchasPeticiones</string>
     <string name="sbotonxkcd">Cómic XKCD</string>
-    <string name="sbotonotroxkcd">Otro cómic</string>
+    <string name="sbotonwiki">Efemérides</string>
 
+    <string name="sbotonotroxkcd">Otro cómic</string>
     <string name="stituloxkcd">[Título]</string>
 
 

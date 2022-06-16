@@ -2,15 +2,12 @@ package com.example.muchaspeticiones
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_actividadxkcd.*
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.StringBuilder
@@ -28,9 +25,7 @@ class actividadxkcd : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_actividadxkcd)
 
-        Log.i("ActividadXKCD", "AAAAA")
         getrandomxkcd()
-        Log.i("ActividadXKCD", "BBBBB")
     }
 
     private fun getrandomxkcd() {
@@ -38,15 +33,11 @@ class actividadxkcd : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASEXKCD)
             .build()
-            .create(apiif::class.java)
-
-        Log.i("ActividadXKCD", "CCCCC")
+            .create(apiifxkcd::class.java)
 
         val data: retrofit2.Call<xkcdGETItem> = if (firsttime) {
-            Log.i("ActividadXKCD", "AASDASDADASD")
             retrofitbuilder.getLatestComic()
         } else {
-            Log.i("ActividadXKCD", "Esto no debería salir")
             retrofitbuilder.getRandomComic((0..latest).random()) // retrofitbuilder.getRandomComic()
         }
 
@@ -104,6 +95,5 @@ class actividadxkcd : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
             } /* onFailure */
         }) /* data.enqueue */
-
-    } /* getrandomxkcd */
-}
+    } /* getrandomxkcd     */
+} /* class actividadxkcd   */

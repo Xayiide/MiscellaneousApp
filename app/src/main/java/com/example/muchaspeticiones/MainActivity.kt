@@ -17,11 +17,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val bxkcd = findViewById<Button>(R.id.idbotonxkcd)
+        val bwiki = findViewById<Button>(R.id.idbotonwiki)
 
         bxkcd.setOnClickListener {
             val intent = Intent(this, actividadxkcd::class.java)
             startActivity(intent)
         }
+
+        bwiki.setOnClickListener {
+            val intent = Intent(this, actividadwiki::class.java)
+            startActivity(intent)
+        }
+
     }
 
 
