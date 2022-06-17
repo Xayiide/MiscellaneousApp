@@ -2,14 +2,10 @@ package com.example.muchaspeticiones
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import com.squareup.picasso.Picasso
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_actividadwiki.*
 import kotlinx.android.synthetic.main.activity_actividadxkcd.*
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,22 +13,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.text.StringBuilder
 
 const val BASEWIKI = "https://es.wikipedia.org/api/rest_v1/feed/onthisday/deaths/"
 
 class actividadwiki : AppCompatActivity() {
 
-
-
-
-
+    var deaths = arrayListOf<wikiGETItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_actividadwiki)
 
         getwikideaths()
+        initRecycler()
 
     }
 
@@ -55,8 +50,7 @@ class actividadwiki : AppCompatActivity() {
                                     response: Response<wikiGET?>) {
                 val responseBody = response.body()!!
 
-                val deaths = responseBody.deaths
-
+                deaths = responseBody.deaths
 
                 for (death in deaths) {
                     val bb = StringBuilder()
@@ -88,5 +82,19 @@ class actividadwiki : AppCompatActivity() {
                                 Toast.LENGTH_SHORT).show()
             } /* onFailure */
         }) /* data.enqueue */
-    } /* getwikibirths()   */
+
+        Log.v("[getwikideaths]", "Saliendo")
+
+    } /* getwikideaths()   */
+
+
+    private fun initRecycler() {
+        Log.i("[initRecycler]", "Iniciando recycler")
+        idrviewwiki.layoutManager = LinearLayoutManager(this)
+        val adapter = wikiadapter(deaths)
+        idrviewwiki.adapter = adapter
+    }
+
+
+
 } /* class actividadwiki   */
