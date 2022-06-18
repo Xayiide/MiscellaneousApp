@@ -59,7 +59,8 @@ class actividadwiki : AppCompatActivity() {
                     try {
                         val name: String? = death.pages[0].displaytitle
                         val desc: String? = death.pages[0].description
-                        val img:  String? = death.pages[0].thumbnail.source
+                        val img : String? = death.pages[0].thumbnail.source
+                        val anio: String = death.year.toString()
                         if (name == null || desc == null || img == null) {
                             continue
                         }
@@ -69,7 +70,7 @@ class actividadwiki : AppCompatActivity() {
                         // bb.append("\n")
                         // print(bb)
 
-                        listamoridos = listamoridos + moridos(name, desc, img)
+                        listamoridos = listamoridos + moridos(name, desc, img, anio)
                         Log.i("[Añadiendo a moridos: ]", name + " " + desc + " " + img + "\n")
 
                     } catch (e: Exception) {

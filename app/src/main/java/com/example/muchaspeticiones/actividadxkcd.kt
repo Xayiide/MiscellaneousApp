@@ -11,10 +11,15 @@ import com.squareup.picasso.Picasso
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.StringBuilder
+import java.text.SimpleDateFormat
+import com.example.muchaspeticiones.IOHelper as IOHelper
 
 const val BASEXKCD = "https://xkcd.com/"
 
 class actividadxkcd : AppCompatActivity() {
+
+    val ioh = IOHelper()
+    var fncounter: Int = 0;
 
     var latest    : Int     = 0
     var firsttime : Boolean = true
@@ -26,7 +31,7 @@ class actividadxkcd : AppCompatActivity() {
         setContentView(R.layout.activity_actividadxkcd)
 
         getrandomxkcd()
-    }
+    } /* onCreate() */
 
     private fun getrandomxkcd() {
         val retrofitbuilder = retrofit2.Retrofit.Builder()
@@ -71,10 +76,16 @@ class actividadxkcd : AppCompatActivity() {
                 val xkcdimg  = findViewById<ImageView>(R.id.idimgxkcd)
                 val xkcdtit  = findViewById<TextView>(R.id.idtxtxkcd)
                 val xkcdotro = findViewById<Button>(R.id.idbotonotroxkcd)
+                val xkcdsave = findViewById<Button>(R.id.idbotonguardarxkcd)
 
                 xkcdotro.setOnClickListener {
                     getrandomxkcd()
                 }
+
+                xkcdsave.setOnClickListener {
+                    guardarxkcd(responseBody)
+                }
+
 
                 if (imglink != "") {
                     Picasso.get().load(imglink).into(xkcdimg)
@@ -96,4 +107,16 @@ class actividadxkcd : AppCompatActivity() {
             } /* onFailure */
         }) /* data.enqueue */
     } /* getrandomxkcd     */
+
+    private fun guardarxkcd(comic: xkcdGETItem) {
+        val path: String = filesDir.path.toString()
+
+
+        val secs    : String = (System.currentTimeMillis() * 0.001).toInt().toString()
+        val filename: String =  path + "/" + secs + "_" + fncounter.toString() + ".log"
+        val text    : String = "num=" + comic.num.toString() + "\n" +
+                               "title=" + comic.title
+        Log.i("AAAAA", filename)
+        ioh.writefile(filename, text)
+    } /* guardarxkcd() */
 } /* class actividadxkcd   */

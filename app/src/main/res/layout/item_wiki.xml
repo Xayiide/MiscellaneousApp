@@ -15,10 +15,18 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/idtextoaniowiki"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:textStyle="italic"
+            android:text="2001" />
+
+        <TextView
             android:id="@+id/idtextonombrewiki"
             android:layout_width="match_parent"
-            android:layout_height="76dp"
-            android:text="Teodosio III de Braganza"/>
+            android:layout_height="35dp"
+            android:textStyle="bold"
+            android:text="Teodosio III de Braganza" />
 
         <TextView
             android:id="@+id/idtextodescwiki"

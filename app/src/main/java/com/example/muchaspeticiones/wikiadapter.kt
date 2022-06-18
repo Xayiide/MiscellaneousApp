@@ -22,6 +22,7 @@ class wikiadapter(val wikiitem: List<moridos>): RecyclerView.Adapter<wikiadapter
 
     class wikiholder(val view: View): RecyclerView.ViewHolder(view) {
         fun render(wikigetitem: moridos) {
+            view.idtextoaniowiki.text   = wikigetitem.anio
             view.idtextonombrewiki.text = wikigetitem.nombre
             view.idtextodescwiki.text   = wikigetitem.desc
             Picasso.get().load(wikigetitem.img).into(view.idimgwiki)
