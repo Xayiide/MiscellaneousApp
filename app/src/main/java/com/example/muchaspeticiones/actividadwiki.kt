@@ -20,15 +20,17 @@ const val BASEWIKI = "https://es.wikipedia.org/api/rest_v1/feed/onthisday/deaths
 
 class actividadwiki : AppCompatActivity() {
 
+    var listamoridos = listOf<moridos>()
+
     var deaths = arrayListOf<wikiGETItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_actividadwiki)
 
+        // initRecycler()
         getwikideaths()
-        initRecycler()
-
+        Log.i("AAAA", "AAAAAAAAAAAAAAAAAA")
     }
 
     private fun getwikideaths() {
@@ -43,7 +45,7 @@ class actividadwiki : AppCompatActivity() {
         Log.i("Month", month)
         Log.i("Day", day)
 
-        val data: retrofit2.Call<wikiGET> = retrofitbuilder.getDeaths("02", "08")
+        val data: retrofit2.Call<wikiGET> = retrofitbuilder.getDeaths(month, day)
 
         data.enqueue(object : Callback<wikiGET?> {
             override fun onResponse(call: retrofit2.Call<wikiGET?>,
@@ -57,19 +59,25 @@ class actividadwiki : AppCompatActivity() {
                     try {
                         val name: String? = death.pages[0].displaytitle
                         val desc: String? = death.pages[0].description
-                        if (name == null || desc == null) {
+                        val img:  String? = death.pages[0].thumbnail.source
+                        if (name == null || desc == null || img == null) {
                             continue
                         }
-                        bb.append(name)
-                        bb.append(", ")
-                        bb.append(desc)
-                        bb.append("\n")
-                        print(bb)
+                        // bb.append(name)
+                        // bb.append(", ")
+                        // bb.append(desc)
+                        // bb.append("\n")
+                        // print(bb)
+
+                        listamoridos = listamoridos + moridos(name, desc, img)
+                        Log.i("[Añadiendo a moridos: ]", name + " " + desc + " " + img + "\n")
+
                     } catch (e: Exception) {
                         continue
                     }
                 }
-
+                showmoridos()
+                initRecycler()
             } /* onResponse */
 
             override fun onFailure(call: retrofit2.Call<wikiGET?>?, t: Throwable?) {
@@ -91,10 +99,17 @@ class actividadwiki : AppCompatActivity() {
     private fun initRecycler() {
         Log.i("[initRecycler]", "Iniciando recycler")
         idrviewwiki.layoutManager = LinearLayoutManager(this)
-        val adapter = wikiadapter(deaths)
+        val adapter = wikiadapter(listamoridos)
         idrviewwiki.adapter = adapter
-    }
+    } /* initRecycler() */
 
+    private fun showmoridos() {
+        for (morido in listamoridos) {
+            println("Nombre: " + morido.nombre)
+            println("Descri: " + morido.desc)
+            println("imagen: " + morido.img + "\n")
+        }
+    }
 
 
 } /* class actividadwiki   */

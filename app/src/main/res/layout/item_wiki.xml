@@ -16,13 +16,15 @@
 
         <TextView
             android:id="@+id/idtextonombrewiki"
-            android:layout_width="207dp"
-            android:layout_height="76dp" />
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:text="Teodosio III de Braganza"/>
 
         <TextView
             android:id="@+id/idtextodescwiki"
-            android:layout_width="207dp"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="IX Duque de Braganza"/>
     </LinearLayout>
 
 </LinearLayout>
